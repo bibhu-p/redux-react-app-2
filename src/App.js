@@ -3,7 +3,7 @@ import {Table , Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddModal from './components/AddModal';
 import { useSelector, useDispatch } from 'react-redux';
-import {allUser  } from './redux/actions/action';
+import {allUser, singleUser } from './redux/actions/action';
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
 
@@ -12,8 +12,20 @@ function App() {
   const reduxAllUsers = useSelector((state)=> state.crudOp);
   const dispatch = useDispatch();
   const [addModalVisible, setAddModalVisible] = useState(false);
+  const [action, setAction] = useState('add');
+
 
   const [newUserData, setNewUserData] = useState(
+    {
+      name: "",
+      email:'',
+      age: '',
+      phone: '',
+      
+    }
+  )
+
+  const [editUserData, setEditUserData] = useState(
     {
       name: "",
       email:'',
@@ -31,14 +43,15 @@ function App() {
   }
   const createModal = ()=>{
     setAddModalVisible(true)
+    setAction('add')
   }
   const formSubmit = () =>{
     setAddModalVisible(false)
     dispatch(allUser(newUserData));
     clear()
   }
-  const viewData=()=>{
-
+  const viewData=(i)=>{
+    dispatch(singleUser(i))
   }
   const onDelete =()=>{
 
@@ -63,7 +76,7 @@ function App() {
         </thead>
         <tbody>
           {myState.map((data, i) => 
-             <tr>
+             <tr key={i}>
               <td>{i + 1}</td>
               <td>{data.name}</td>
               <td>{data.email}</td>
