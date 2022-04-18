@@ -8,11 +8,7 @@ const crudOp = (state = initialState,action)=>{
             let copyArr= state;
             copyArr.push(action.payload)
             state=copyArr
-            return state
-        
-        // case 'singleData':
-        //     console.log(state[action.payload]);
-        //     return
+            return state;
 
         case 'deleteData':
             let deleteArr= state;
@@ -37,18 +33,13 @@ const editOp = (state = singleState,action)=>{
             state.name = data.name;
             state.email = data.email;
             state.age = data.age;
-            state.phone = data.phone;
-            // state.index = action.payload;
-
-            // console.log(typeof(state))
-            // console.log(">>>>>>>>>>>>>>>>>>",state);
+            state.phone = data.phone;           
             return state;
 
         default:
             return state;
     }
 }
-
 
 export default crudOp;
 export {editOp};

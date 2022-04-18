@@ -33,9 +33,8 @@ function App() {
     setMyState(reduxAllUsers)
   },[reduxAllUsers])
 
-  const clear = () => {
-    setNewUserData({ ...newUserData, name: '', email: "", phone: "", age: ""})
-  }
+  const clear = () => { setNewUserData({ ...newUserData, name: '', email: "", phone: "", age: ""})}
+  
   const createModal = ()=>{
     clear()
     setAddModalVisible(true)

@@ -1,9 +1,7 @@
 export const allUser =(data)=>{
-    // console.log(data);
     return {
         type :'allData',
         payload:data,
-        
     }
 }
 
