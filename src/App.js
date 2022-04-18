@@ -3,7 +3,7 @@ import {Table , Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddModal from './components/AddModal';
 import { useSelector, useDispatch } from 'react-redux';
-import {allUser, singleUser } from './redux/actions/action';
+import {allUser, singleUser, deleteUser } from './redux/actions/action';
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
 
@@ -26,14 +26,9 @@ function App() {
   )
 
   const [editUserData, setEditUserData] = useState(
-    {
-      name: "",
-      email:'',
-      age: '',
-      phone: '',
-      
-    }
+    useSelector((state)=> state.editOp)
   )
+
   useEffect(()=>{
     setMyState(reduxAllUsers)
   },[reduxAllUsers])
@@ -42,6 +37,7 @@ function App() {
     setNewUserData({ ...newUserData, name: '', email: "", phone: "", age: ""})
   }
   const createModal = ()=>{
+    clear()
     setAddModalVisible(true)
     setAction('add')
   }
@@ -52,8 +48,32 @@ function App() {
   }
   const viewData=(i)=>{
     dispatch(singleUser(i))
+    setAddModalVisible(true)
+    setAction('edit')
   }
-  const onDelete =()=>{
+  
+  const editSubmit = (i) => {
+    const editUser = editUserData;
+    // console.log(editUser);
+    const oldData = myState;
+    oldData.splice(i,1,editUser);
+    // dispatch(allUser(oldData));
+    // console.log(oldData);
+    setAddModalVisible(false);
+    clear();
+};
+
+
+  const onDelete =(i)=>{
+    console.log(">>>>>>>>>>>>>>>");
+    dispatch(deleteUser(i))
+
+    // console.log(reduxAllUsers);
+    // reduxAllUsers.splice(i,1);
+
+    // setMyState(reduxAllUsers);
+    // myState.assign(oldData)
+    // dispatch(allUser(reduxAllUsers));
 
   }
 
@@ -95,6 +115,10 @@ function App() {
       formSubmit = {formSubmit}
       newUserData = {newUserData}
       setNewUserData = {setNewUserData}
+      editUserData = {editUserData}
+      setEditUserData = {setEditUserData}
+      action = {action}
+      editSubmit = {editSubmit}
      />}
     </>
   )

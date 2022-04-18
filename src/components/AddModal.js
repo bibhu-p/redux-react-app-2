@@ -5,53 +5,53 @@ const AddModal =(props)=>{
 
  return(
      
-        <Modal show={props.addModalVisible} onHide={()=>props.setAddModalVisible(false)}>
-        <Modal.Header closeButton>
-        <Modal.Title>Add User</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <input
-        type="text"
-        name="name"
-        required="required"
-        placeholder="Enter name..."
-        value={props.newUserData.name}
-        onChange={(e) => props.setNewUserData({ ...props.newUserData, name: e.target.value })}
-        />
-        <input
-        type="email"
-        name="email"
-        required="required"
-        placeholder="Enter email..."
-        value={props.newUserData.email}
-        onChange={(e) => props.setNewUserData({ ...props.newUserData, email: e.target.value })}
-        />
-         <input
-        type="text"
-        name="phone"
-        required="required"
-        placeholder="Enter phone number..."
-        value={props.newUserData.phone}
-        onChange={(e) => props.setNewUserData({ ...props.newUserData, phone: e.target.value })}
-        />
-        <input
-        type="text"
-        name="age"
-        required="required"
-        placeholder="Enter age..."
-        value={props.newUserData.age}
-        onChange={(e) => props.setNewUserData({ ...props.newUserData, age: e.target.value })}
-        />
-        </Modal.Body>
-        <Modal.Footer>
-        <Button variant="secondary" onClick={()=>props.setAddModalVisible(false)}>
-            Close
-        </Button>
-        <Button variant="primary" onClick={()=>props.formSubmit()}>
-            ADD
-        </Button>
-        </Modal.Footer>
-        </Modal>
+    <Modal show={true} scrollable={true} onHide={()=>props.setAddModalVisible(false)} > 
+    <Modal.Header closeButton>
+    <Modal.Title> {props.action==='add'? 'Add Data':'Edit Data'}</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+    <input
+    type="text"
+    name="name"
+    className="ms-3 my-2"
+    required="required"
+    placeholder="Enter name..."
+    value={props.action ==='add'?props.newUserData.name : props.editUserData.name}
+    onChange={(e) => {props.action ==='add'? props.setNewUserData({ ...props.newUserData, name: e.target.value }): props.setEditUserData({...props.editUserData,name:e.target.value})}}
+    />
+    <input
+    type="text"
+    name="email"
+    className="ms-3 my-2"
+    required="required"
+    placeholder="Enter email..."
+    value={props.action ==='add'?props.newUserData.email : props.editUserData.email}
+    onChange={(e) => {props.action ==='add'? props.setNewUserData({ ...props.newUserData, email: e.target.value }): props.setEditUserData({...props.editUserData,email:e.target.value})}}
+    />
+    <input
+    type="text"
+    name="phone"
+    className="ms-3 my-2"
+    required="required"
+    placeholder="Enter phone number..."
+    value={props.action ==='add'?props.newUserData.phone : props.editUserData.phone}
+    onChange={(e) => {props.action ==='add'? props.setNewUserData({ ...props.newUserData, phone: e.target.value }):props.setEditUserData({...props.editUserData,phone:e.target.value})}}
+    />
+    <input
+    type="text"
+    name="age"
+    className="ms-3 my-2"
+    required="required"
+    placeholder="Enter age"
+    value={props.action ==='add'?props.newUserData.age : props.editUserData.age}
+    onChange={(e) => {props.action ==='add'? props.setNewUserData({ ...props.newUserData, age: e.target.value }):props.setEditUserData({...props.editUserData, age:e.target.value})}}
+    />
+    </Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={()=>props.setAddModalVisible(false)}>Close</Button>
+      <Button variant="primary" onClick={()=> props.action === 'add' ? props.formSubmit() : props.editSubmit(props.editUserData.index)}>{props.action==='add'? 'Add':'Update'}</Button>
+    </Modal.Footer>
+    </Modal>
     )
 }
 

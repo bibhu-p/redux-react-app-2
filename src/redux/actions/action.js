@@ -13,3 +13,10 @@ export const singleUser =(userIndex)=>{
         payload:userIndex,
     }
 }
+
+export const deleteUser =(userIndex)=>{
+    return{
+        type : 'deleteData',
+        payload:userIndex,
+    }
+}
